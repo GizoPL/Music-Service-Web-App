@@ -9,7 +9,8 @@ namespace MyFirstWebApp.Model
 {
     public class Track
     {   
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
       
         [Required]
         public string NameOfTrack { get; set; }
@@ -18,8 +19,8 @@ namespace MyFirstWebApp.Model
         public string Duration { get; set; }
      
         //Relationship
-        public Guid AlbumId { get; set; }
+        public int AlbumId { get; set; }
         [ForeignKey("AlbumId")]
-        public Album Album { get; set; }
+        public virtual Album Album { get; set; }
     }
 }

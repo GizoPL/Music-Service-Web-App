@@ -9,7 +9,8 @@ namespace MyFirstWebApp.Model
 {
     public class Album
     {   
-        public Guid Id {get; set;}  
+        [Key]
+        public  int Id {get; set;}  
         [Required]
         public string NameOfArtist {get; set;}
         [Required]
@@ -20,10 +21,10 @@ namespace MyFirstWebApp.Model
         public DateTime DateOfPublication { get; set; }
         
         //Relationship
-        public Guid SupplierId { get; set; }
+        public int SupplierId { get; set; }
         [ForeignKey("SupplierId")]
-        public Supplier Supplier { get; set; }
-        public List<Track> Tracks { get; set; }
+        public virtual Supplier Supplier { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
 
     }
 }

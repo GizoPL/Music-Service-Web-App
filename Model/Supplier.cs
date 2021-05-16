@@ -8,7 +8,8 @@ namespace MyFirstWebApp.Model
 {
     public class Supplier
     { 
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
@@ -19,6 +20,6 @@ namespace MyFirstWebApp.Model
         public string Email { get; set; }
         
         //Relationship
-        public List<Album> Albums { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
     }
 }
