@@ -23,7 +23,7 @@ namespace Repository
 
         public AlbumReadDto GetAlbum(int Id)
         {
-            var album = _context.Albums.Include(p => p.Tracks).FirstOrDefault(p=> p.Id == Id);
+            var album = _context.Albums.Include(p => p.Tracks).FirstOrDefault(p => p.Id == Id);
 
             if (album is null)
             {
@@ -36,6 +36,23 @@ namespace Repository
         public IEnumerable<AlbumReadDto> GetAllAlbums()
         {
             return _mapper.Map<IEnumerable<AlbumReadDto>>(_context.Albums.Include(p => p.Tracks).ToList());
+        }
+
+        public IEnumerable<TrackDto> GetAllTracksFromAlbum(int Id)
+        {
+            return _mapper.Map<IEnumerable<TrackDto>>( _context.Tracks.Where(p => p.AlbumId == Id));
+        }
+
+        public TrackDto GetTrackFromAlbum(int Id)
+        {
+            var track = _context.Tracks.FirstOrDefault(p => p.Id == Id);
+    
+            if (track is null)
+            {
+                throw new Exception("Track not found");
+            }
+
+            return _mapper.Map<TrackDto>(track);
         }
     }
 }
