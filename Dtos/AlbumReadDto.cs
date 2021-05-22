@@ -12,7 +12,7 @@ namespace Dtos
         public string VersionOfAlbum { get; set; }
         public DateTime DateOfPublication { get; set; }
         public int SupplierId { get; set; }
-        public ICollection<TrackDto> Tracks { get; set; }
+        public ICollection<TrackReadDto> Tracks { get; set; }
 
     }
 }

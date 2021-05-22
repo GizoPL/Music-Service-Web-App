@@ -16,7 +16,7 @@ namespace MyFirstWebApp.Model
         public string NameOfTrack { get; set; }
 
         [Required]
-        public string Duration { get; set; }
+        public int Duration { get; set; }
      
         //Relationship
         public int AlbumId { get; set; }

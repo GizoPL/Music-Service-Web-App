@@ -2,7 +2,7 @@ using System;
 
 namespace Dtos
 {
-    public class TrackDto
+    public class TrackReadDto
     {
         public int Id { get; set; }
         public string NameOfTrack { get; set; }

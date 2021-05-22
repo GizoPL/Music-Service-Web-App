@@ -9,7 +9,8 @@ namespace ProfileDto
         public AlbumProfile()
         {
             CreateMap<Album, AlbumReadDto>().ReverseMap();
-            CreateMap<Track, TrackDto>().ReverseMap();
+            CreateMap<Track, TrackReadDto>().ReverseMap();
+            CreateMap<Track, TrackCreateDto>().ReverseMap();
         }
     }
 }

@@ -31,8 +31,9 @@ namespace MyFirstWebApp
         {
             services.AddDbContext<MusicContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IMusicRepo, MusicRepo>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyFirstWebApp", Version = "v1" });

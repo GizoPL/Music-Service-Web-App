@@ -13,11 +13,9 @@ namespace MyFirstWebApp.Model
         [Required]
         public string UserName { get; set; }
         [Required]
-        public string Login { get; set; }
+        public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public string Email { get; set; }
         
         //Relationship
         public virtual ICollection<Album> Albums { get; set; }
