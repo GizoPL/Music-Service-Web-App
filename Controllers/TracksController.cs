@@ -20,24 +20,73 @@ namespace Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}", Name = "GetAllTracksFromAlbum")]
+        [HttpGet("{id}")]
         public ActionResult<IEnumerable<TrackReadDto>> GetAllTracksFromAlbum(int id)
         {
             var tracks = _repository.GetAllTracksFromAlbum(id);
             
-            return Ok(tracks);
+            return Ok(_mapper.Map<IEnumerable<TrackReadDto>>(tracks));
         }
 
-        [HttpPost()]
+        [HttpGet("getTrack/{id}", Name ="GetSingleTrack")]
+        public ActionResult<TrackReadDto> GetSingleTrack(int id){
+            
+            var track = _repository.GetTrackFromAlbum(id);
+
+            if(track is null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<TrackReadDto>(track));
+        }
+
+        [HttpPost]
         public ActionResult<TrackReadDto> CreateTrack(TrackCreateDto trackCreateDto)
         {
             var trackModel = _mapper.Map<Track>(trackCreateDto);
+
             _repository.CreateTrack(trackModel);
+
             _repository.SaveChanges();
             
             var trackReadDto = _mapper.Map<TrackReadDto>(trackModel);
 
-            return CreatedAtRoute(nameof(GetAllTracksFromAlbum), new {Id = trackReadDto.Id}, trackCreateDto);
+            return CreatedAtRoute(nameof(GetSingleTrack), new {Id = trackReadDto.Id}, trackCreateDto);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateTrack(int id, TrackUpdateDto trackUpdateDto)
+        {
+            var trackModel = _repository.GetTrackFromAlbum(id);
+            
+            if(trackModel is null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(trackUpdateDto, trackModel);
+
+            _repository.UpdateTrack(trackModel);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+         [HttpDelete("{id}")]
+       public ActionResult DeleteTrack(int id)
+       {
+           var track = _repository.GetTrackFromAlbum(id);
+           
+           if(track is null)
+           {
+               return NotFound();
+           }
+
+           _repository.DeleteTrack(track);
+
+           _repository.SaveChanges();
+
+           return NoContent();
+       }
     }
 }

@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dtos
 {
-    public class TrackCreateDto
-    { 
+    public class TrackUpdateDto
+    {
         [Required]
         public string NameOfTrack { get; set; }
         [Required]

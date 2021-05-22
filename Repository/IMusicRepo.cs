@@ -9,11 +9,16 @@ namespace Repository
     public interface IMusicRepo
     {
         bool SaveChanges();
-        public IEnumerable<AlbumReadDto> GetAllAlbums();
-        public AlbumReadDto GetAlbum(int Id);
-        public IEnumerable<TrackReadDto> GetAllTracksFromAlbum(int Id);
-        public TrackReadDto GetTrackFromAlbum(int Id);
         void CreateAlbum(Album album);
+        void UpdateAlbum(Album album);
+        void DeleteAlbum(Album album);
+        public IEnumerable<Album> GetAllAlbums();
+        public Album GetAlbum(int Id);
+        
         void CreateTrack(Track track);
+        void UpdateTrack(Track track);
+        void DeleteTrack(Track track);
+        public IEnumerable<Track> GetAllTracksFromAlbum(int Id);
+        public Track GetTrackFromAlbum(int Id);
     }
 }

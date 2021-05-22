@@ -1,18 +1,19 @@
 using System;
-using System.Collections.Generic;
-using MyFirstWebApp.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dtos
 {
-    public class AlbumReadDto
+    public class AlbumUpdateDto
     {
-        public int Id {get; set;}  
+        [Required]
         public string NameOfArtist {get; set;}
+        [Required]
         public string NameOfAlbum { get; set; }
-        public int SupplierId { get; set; }
+        [Required]
         public string VersionOfAlbum { get; set; }
+        [Required]
         public DateTime DateOfPublication { get; set; }
-        public ICollection<TrackReadDto> Tracks { get; set; }
-
+        [Required]
+        public int SupplierId { get; set; }
     }
 }
