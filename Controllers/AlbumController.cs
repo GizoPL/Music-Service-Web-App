@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Dtos;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstWebApp.Model;
@@ -12,10 +13,12 @@ namespace Controllers
     public class AlbumController : ControllerBase
     {
         private readonly IMusicRepo _repository;
+        private readonly IMapper _mapper;
 
-        public AlbumController(IMusicRepo repository)
+        public AlbumController(IMusicRepo repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -25,7 +28,7 @@ namespace Controllers
             return Ok(albums);
         }
         
-       [HttpGet("{id}")]
+       [HttpGet("{id}", Name = "GetAlbum")]
        public ActionResult<AlbumReadDto> GetAlbum(int id){
 
            var album = _repository.GetAlbum(id);
@@ -36,6 +39,19 @@ namespace Controllers
            }
 
            return Ok(album);
+       }
+
+       [HttpPost]
+       public ActionResult<AlbumReadDto> CreateAlbum(AlbumCreateDto albumCreateDto)
+       {
+            var albumModel = _mapper.Map<Album>(albumCreateDto);
+            _repository.CreateAlbum(albumModel);
+            _repository.SaveChanges();
+
+            var albumReadDto = _mapper.Map<AlbumReadDto>(albumModel);
+
+            return CreatedAtRoute(nameof(GetAlbum), new {Id = albumReadDto.Id}, albumCreateDto);
+
        }
 
     }
