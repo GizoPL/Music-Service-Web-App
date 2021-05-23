@@ -11,5 +11,6 @@ namespace Repository
 
         Supplier GetSupplierById(int Id);
         IEnumerable<Supplier> GetAllSuppliers();
+        string GenerateJwt(LoginDto loginDto);
     }
 }

@@ -56,6 +56,12 @@ namespace Controllers
             return CreatedAtRoute(nameof(GetSupplier), new {Id = createdSupplier.Id}, supplierRegisterDto);
         }
 
+        [HttpPost("login")]
+        public ActionResult Login(LoginDto loginDto)
+        {
+            string token = _repository.GenerateJwt(loginDto);
+            return Ok(token);
+        }
 
     }
 }
