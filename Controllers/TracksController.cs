@@ -20,7 +20,7 @@ namespace Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getAllTracksByAlbumId/{id}")]
         public ActionResult<IEnumerable<TrackReadDto>> GetAllTracksFromAlbum(int id)
         {
             var tracks = _repository.GetAllTracksFromAlbum(id);
@@ -40,7 +40,7 @@ namespace Controllers
             return Ok(_mapper.Map<TrackReadDto>(track));
         }
 
-        [HttpPost]
+        [HttpPost("createTrack")]
         public ActionResult<TrackReadDto> CreateTrack(TrackCreateDto trackCreateDto)
         {
             var trackModel = _mapper.Map<Track>(trackCreateDto);
@@ -54,7 +54,7 @@ namespace Controllers
             return CreatedAtRoute(nameof(GetSingleTrack), new {Id = trackReadDto.Id}, trackCreateDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateTrack/{id}")]
         public ActionResult UpdateTrack(int id, TrackUpdateDto trackUpdateDto)
         {
             var trackModel = _repository.GetTrackFromAlbum(id);
@@ -72,7 +72,7 @@ namespace Controllers
             return NoContent();
         }
 
-         [HttpDelete("{id}")]
+         [HttpDelete("deleteTrack/{id}")]
        public ActionResult DeleteTrack(int id)
        {
            var track = _repository.GetTrackFromAlbum(id);

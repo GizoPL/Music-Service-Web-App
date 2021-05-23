@@ -1,6 +1,10 @@
+using Dtos;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,8 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyFirstWebApp.Model;
 using MyFirstWebApp.Repository;
 using Repository;
+using Repository.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +36,12 @@ namespace MyFirstWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MusicContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IMusicRepo, MusicRepo>();
-            
+            services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<IPasswordHasher<Supplier>,PasswordHasher<Supplier>>();
+            services.AddScoped<IValidator<SupplierRegisterDto>, SupplierRegisterDtoValidator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyFirstWebApp", Version = "v1" });

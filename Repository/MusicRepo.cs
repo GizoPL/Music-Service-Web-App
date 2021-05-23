@@ -15,7 +15,7 @@ namespace Repository
      
         private readonly MusicContext _context;
 
-        public MusicRepo(MusicContext contex, IMapper mapper)
+        public MusicRepo(MusicContext contex)
         {
             _context = contex;
         }

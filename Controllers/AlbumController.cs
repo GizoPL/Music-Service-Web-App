@@ -21,20 +21,15 @@ namespace Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("getAllAlbums")]
         public ActionResult <IEnumerable<AlbumReadDto>> GetAllAlbums()
         {
             var albums = _repository.GetAllAlbums();
 
-            if(albums is null)
-            {
-                return NotFound();
-            }
-
             return Ok(_mapper.Map<IEnumerable<AlbumReadDto>>(albums));
         }
         
-       [HttpGet("{id}", Name = "GetAlbum")]
+       [HttpGet("getAlbum/{id}", Name = "GetAlbum")]
        public ActionResult<AlbumReadDto> GetAlbum(int id)
        {
            var album = _repository.GetAlbum(id);
@@ -47,7 +42,7 @@ namespace Controllers
            return Ok(_mapper.Map<AlbumReadDto>(album));
        }
 
-       [HttpPost]
+       [HttpPost("createAlbum")]
        public ActionResult<AlbumReadDto> CreateAlbum(AlbumCreateDto albumCreateDto)
        {
             var albumModel = _mapper.Map<Album>(albumCreateDto);
@@ -61,7 +56,7 @@ namespace Controllers
             return CreatedAtRoute(nameof(GetAlbum), new {Id = albumReadDto.Id}, albumCreateDto);
        }
 
-       [HttpPut("{id}")]
+       [HttpPut("updateAlbum/{id}")]
        public ActionResult UpdateAlbum(int id, AlbumUpdateDto albumUpdateDto)
        {
             var albumModel = _repository.GetAlbum(id);
@@ -80,7 +75,7 @@ namespace Controllers
             return NoContent();
        }
 
-       [HttpDelete("{id}")]
+       [HttpDelete("delteAlbum/{id}")]
        public ActionResult DeleteAlbum(int id)
        {
            var album = _repository.GetAlbum(id);

@@ -15,6 +15,9 @@ namespace ProfileDto
             CreateMap<Track, TrackReadDto>().ReverseMap();
             CreateMap<Track, TrackCreateDto>().ReverseMap();
             CreateMap<Track, TrackUpdateDto>().ReverseMap();
+
+            CreateMap<Supplier, SupplierRegisterDto>().ReverseMap();
+            CreateMap<Supplier, SupplierReadDto>().ReverseMap();
         }
     }
 }
